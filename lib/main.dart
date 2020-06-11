@@ -54,15 +54,15 @@ class _MainPageState extends State<MainPage> {
         children: <Widget>[
           ListTile(
             leading: Icon(Icons.map),
-            title: Text('Map'),
+            title: Text('地図'),
           ),
           ListTile(
             leading: Icon(Icons.photo_album),
-            title: Text('Album'),
+            title: Text('アルバム'),
           ),
           ListTile(
             leading: Icon(Icons.phone),
-            title: Text('Phone'),
+            title: Text('電話'),
           ),
         ],
       ),
