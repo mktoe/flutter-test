@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'main_model.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -8,64 +11,35 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Stateful',
-      home: Scaffold(
-        body: Center(
-          child: MainPage(),
+      home: ChangeNotifierProvider<MainModel>(
+        create: (_) => MainModel(),
+        child: Scaffold(
+        appBar: AppBar(
+          title: const Text('TSUQLU'),
+          backgroundColor: Color(0xff009389),
         ),
-      ),
-    );
-  }
-}
-
-class MainPage extends StatefulWidget {
-  @override
-  _MainPageState createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
-
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('ホーム'),
-        backgroundColor: Color(0xff009389),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('メニュー'),
-              decoration: BoxDecoration(
-                color: Color(0xff009389),
+          body: Consumer<MainModel>(builder: (context, model, child) {
+            return Center(
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    model.titleText,
+                    style: TextStyle(
+                      fontSize: 30
+                    ),
+                  ),
+                  RaisedButton(
+                    child:Text('ボタン'),
+                    onPressed: (){
+                      model.changeText();
+                    },
+                  ),
+                ],
               ),
-            ),
-            ListTile(
-              leading: Icon(Icons.crop_free ),
-              title: Text("QR読み取り"),
-            ),
-            ListTile(
-              leading: Icon(Icons.view_list),
-              title: Text("依頼書一覧"),
-            ),
-          ],
-        ),
+            );
+        }),
       ),
-      body: ListView(
-        children: <Widget>[
-          ListTile(
-            leading: Icon(Icons.map),
-            title: Text('地図'),
-          ),
-          ListTile(
-            leading: Icon(Icons.photo_album),
-            title: Text('アルバム'),
-          ),
-          ListTile(
-            leading: Icon(Icons.phone),
-            title: Text('電話'),
-          ),
-        ],
-      ),
+    ),
     );
   }
 }
